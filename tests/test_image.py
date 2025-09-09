@@ -11,7 +11,7 @@ import pytest
 import tifffile as tiff
 import zarr
 
-from nviz.image import image_set_to_arrays, tiff_to_ometiff, tiff_to_zarr
+from nviz.image import image_set_to_arrays, tiff_to_ometiff, tiff_to_vtk, tiff_to_zarr
 from tests.utils import example_data_for_image_tests
 
 
@@ -159,3 +159,37 @@ def test_tiff_to_ometiff(
         assert pixels.get("PhysicalSizeX") == str(scaling_values[2])
         assert pixels.get("PhysicalSizeY") == str(scaling_values[1])
         assert pixels.get("PhysicalSizeZ") == str(scaling_values[0])
+
+
+@pytest.mark.parametrize(
+    (
+        "image_dir, label_dir, output_path, channel_map, "
+        "scaling_values, ignore, expected_labels"
+    ),
+    example_data_for_image_tests,
+)
+def test_tiff_to_vtk(
+    image_dir: str,
+    label_dir: Optional[str],
+    output_path: str,
+    channel_map: Dict[str, str],
+    scaling_values: Tuple[int, int, int],
+    ignore: Optional[List[str]],
+    expected_labels: List[str],
+    tmp_path: pathlib.Path,
+):
+    """
+    Tests the tiff_to_ometiff function.
+    """
+
+    output_path = tiff_to_vtk(
+        image_dir=image_dir,
+        label_dir=label_dir,
+        output_path=f"{tmp_path}/{output_path}",
+        channel_map=channel_map,
+        scaling_values=scaling_values,
+        ignore=ignore,
+    )
+
+    # Check if the output path exists
+    assert Path(output_path).exists()
