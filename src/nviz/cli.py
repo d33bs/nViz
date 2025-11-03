@@ -130,6 +130,8 @@ class nVizCLI:
         # won't exit after the CLI command completes
         if not headless:
             view.show()
+            # keep a strong reference on the CLI instance
+            self._view = view
             napari.run()
             import time
             time.sleep(5000)  # slight delay to ensure viewer is ready
