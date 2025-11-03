@@ -7,6 +7,7 @@ import sys
 from typing import Dict, List, Optional, Tuple, Union
 
 import fire
+import napari
 
 from nviz.image import tiff_to_ometiff, tiff_to_zarr
 from nviz.report import path_report
@@ -122,9 +123,13 @@ class nVizCLI:
                 otherwise None.
         """
 
-        return view_zarr_with_napari(
+        view_zarr_with_napari(
             zarr_dir=zarr_dir, scaling_values=scaling_values, headless=headless
         )
+        # note: we use napari.run() here to start an event loop which
+        # won't exit after the CLI command completes
+        if not headless:
+            napari.run()
 
     def view_ometiff(
         self,
@@ -152,9 +157,13 @@ class nVizCLI:
                 otherwise None.
         """
 
-        return view_ometiff_with_napari(
+        view_ometiff_with_napari(
             ometiff_path=ometiff_path, scaling_values=scaling_values, headless=headless
         )
+        # note: we use napari.run() here to start an event loop which
+        # won't exit after the CLI command completes
+        if not headless:
+            napari.run()
 
     def path_report(
         self,

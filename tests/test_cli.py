@@ -70,10 +70,10 @@ def test_cli_tiff_to_zarr(
     )
 
     # napari has difficulties when used headlessly through the cli
-    # so we check that the output shows we returned a viewer object.
+    # so we check for a zero return code.
     # This isn't a typical usecase because we can't use the viewer
     # object through a CLI interface (we only enable it for testing).
-    assert stdout.strip() == "napari.Viewer: napari"
+    assert returncode == 0
 
 
 @pytest.mark.parametrize(
@@ -125,10 +125,10 @@ def test_cli_tiff_to_ometiff(
     )
 
     # napari has difficulties when used headlessly through the cli
-    # so we check that the output shows we returned a viewer object.
+    # so we check for a zero return code.
     # This isn't a typical usecase because we can't use the viewer
     # object through a CLI interface (we only enable it for testing).
-    assert stdout.strip() == "napari.Viewer: napari"
+    assert returncode == 0
 
 
 @pytest.mark.parametrize(
