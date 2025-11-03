@@ -123,13 +123,17 @@ class nVizCLI:
                 otherwise None.
         """
 
-        view_zarr_with_napari(
+        view = view_zarr_with_napari(
             zarr_dir=zarr_dir, scaling_values=scaling_values, headless=headless
         )
         # note: we use napari.run() here to start an event loop which
         # won't exit after the CLI command completes
         if not headless:
+            view.show()
             napari.run()
+            import time
+            time.sleep(5000)  # slight delay to ensure viewer is ready
+            
 
     def view_ometiff(
         self,

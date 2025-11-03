@@ -43,7 +43,7 @@ def view_zarr_with_napari(
         )
 
     # Visualize with napari, start in 3d mode
-    viewer = napari.Viewer(ndisplay=3, show=bool(not headless))
+    viewer = napari.Viewer(ndisplay=3)
 
     # Iterate through each channel in the Zarr file
     for channel_name in sorted(frame_zarr["images"].keys(), reverse=True):
@@ -94,7 +94,7 @@ def view_ometiff_with_napari(
         )
 
     # Visualize with napari, start in 3d mode
-    viewer = napari.Viewer(ndisplay=3, show=bool(not headless))
+    viewer = napari.Viewer(ndisplay=3)
 
     # Read and add layers from the combined OME-TIFF file
     with tiff.TiffFile(ometiff_path) as tif:
