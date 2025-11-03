@@ -123,7 +123,7 @@ class nVizCLI:
                 otherwise None.
         """
 
-        view_zarr_with_napari(
+        return view_zarr_with_napari(
             zarr_dir=zarr_dir, scaling_values=scaling_values, headless=headless
         )
 
@@ -153,7 +153,7 @@ class nVizCLI:
                 otherwise None.
         """
 
-        view_ometiff_with_napari(
+        return view_ometiff_with_napari(
             ometiff_path=ometiff_path, scaling_values=scaling_values, headless=headless
         )
 
