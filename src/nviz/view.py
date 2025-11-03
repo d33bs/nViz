@@ -62,6 +62,14 @@ def view_zarr_with_napari(
                 scale=scaling_values,
             )
 
+    if not headless:
+        # Start the Napari event loop
+        napari.run()
+    else:
+        logger.warning(
+            "Running view in headless mode and returning a napari viewer object."
+        )
+
     # otherwise return the viewer
     return viewer
 
@@ -87,11 +95,6 @@ def view_ometiff_with_napari(
             The napari viewer object if not headless,
             otherwise None.
     """
-
-    if headless:
-        logger.warning(
-            "Running view in headless mode and returning a napari viewer object."
-        )
 
     # Visualize with napari, start in 3d mode
     viewer = napari.Viewer(ndisplay=3)
@@ -126,6 +129,15 @@ def view_ometiff_with_napari(
                     name=channel_name,
                     scale=scaling_values,
                 )
+
+    if not headless:
+        # Start the Napari event loop
+        napari.run()
+    else:
+        logger.warning(
+            "Running view in headless mode and returning a napari viewer object."
+        )
+
 
     # otherwise return the viewer
     return viewer
